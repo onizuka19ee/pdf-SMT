@@ -2434,3 +2434,9 @@ animation effects	Off	オフ
 	Make properties default	プロパティをデフォルトに設定
 	Pages selected	選択したページ
 	Page properties	ページのプロパティ
+
+	pdf.SMT	pdf.SMT
+
+	Upstream source (PdfCraft)	元のソースコード (PdfCraft)
+
+	Based on PdfCraft. Open-source, local PDF tools.	PdfCraft を基にした、オープンソースのローカル PDF ツール。

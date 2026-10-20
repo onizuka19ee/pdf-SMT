@@ -596,3 +596,5 @@ Newest first: the date, what moved, and the new overall estimate.
 ## pdf.SMT fork — 2026-10-20
 
 Branding source prepared. Compilation and runtime validation pending; upstream milestone statuses unchanged.
+
+- **2026-10-20:** Windows build #2 failed on missing fork-label translations and a font test disabled by the workflow environment. Added translations in all 22 catalogs and removed the screenshot-only font override from the build job. Windows tests and packaging must pass before distributing an installer.
