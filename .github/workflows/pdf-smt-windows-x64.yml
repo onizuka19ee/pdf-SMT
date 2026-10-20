@@ -1,0 +1,74 @@
+name: pdf.SMT Windows x64
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["build/pdf-smt-windows-x64"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pdf-smt-windows-x64-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 120
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      CARGO_TERM_COLOR: always
+      CARGO_BUILD_JOBS: 2
+      PDFCRAFT_SYSTEM_FONTS: "0"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: pdf-smt
+      - uses: actions/checkout@v4
+        with:
+          repository: storytold/craft-fonts
+          ref: 3d9ab3a132ed0eff457e424226a435a901da30d3
+          path: craft-fonts
+      - name: Set build paths
+        run: |
+          "CRAFT_FONTS_DIR=$env:GITHUB_WORKSPACE\craft-fonts" >> $env:GITHUB_ENV
+          "DIST=$env:GITHUB_WORKSPACE\pdf-smt\dist\release" >> $env:GITHUB_ENV
+      - name: Install Rust and WiX
+        run: |
+          rustup toolchain install 1.95.0 --profile minimal
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          rustup default 1.95.0
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          rustup target add x86_64-pc-windows-msvc
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet tool install --global wix --version 5.0.2
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Check licences and embedded assets
+        working-directory: pdf-smt
+        run: cargo xtask assets
+      - name: Test desktop and interface
+        working-directory: pdf-smt
+        run: cargo test --locked -p pdfcraft -p pdfcraft-ui-egui -j 2
+      - name: Build x64 MSI and portable ZIP
+        working-directory: pdf-smt
+        run: ./packaging/windows/package.ps1 -Arch x64
+      - name: Create SHA-256 checksums
+        working-directory: pdf-smt
+        run: |
+          $lines = Get-ChildItem dist/release -File | Where-Object { $_.Extension -in '.msi', '.zip' } | Sort-Object Name | ForEach-Object {
+            "$((Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower())  $($_.Name)"
+          }
+          $lines | Set-Content dist/release/SHA256SUMS.txt
+      - name: Upload Windows x64 downloads
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf.SMT-Windows-x64
+          path: |
+            pdf-smt/dist/release/*.msi
+            pdf-smt/dist/release/*-portable.zip
+            pdf-smt/dist/release/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 30
