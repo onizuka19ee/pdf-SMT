@@ -50,7 +50,7 @@ jobs:
         run: cargo xtask assets
       - name: Test desktop and interface
         working-directory: pdf-smt
-        run: cargo test --locked -p pdfcraft -p pdfcraft-ui-egui -j 2
+        run: cargo test --locked --no-fail-fast -p pdfcraft -p pdfcraft-ui-egui -j 2
       - name: Build x64 MSI and portable ZIP
         working-directory: pdf-smt
         run: ./packaging/windows/package.ps1 -Arch x64
