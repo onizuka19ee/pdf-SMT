@@ -1447,6 +1447,8 @@ mod tests {
         // Spelled the same in Czech: product and format names, abbreviations, key caps, words
         // Czech shares with English, and templates with no English words.
         const KEEP_AS_IS: &[&str] = &[
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "PDF/A…",
             "Microsoft Word (.docx)",
@@ -1559,6 +1561,8 @@ mod tests {
             assert!(has(tr_lang, spec.label), "Turkish lacks the {menu} menu label {:?} ({})", spec.label, spec.id);
         }
         const KEEP_AS_IS: &[&str] = &[
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "PDF/A…",
             "Microsoft Word (.docx)",
@@ -2566,6 +2570,8 @@ mod tests {
         let vi = Lang::from_code("vi").expect("vi registered");
         // Authoritative allowlist for intentional English-identical Vietnamese rows.
         const KEEP_AS_IS: &[&str] = &[
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "Digital ID",
             "ZIP",
@@ -3029,6 +3035,8 @@ mod tests {
         let (entries, errors) = parse_entries(uk.0.source, uk.0.plural_forms());
         assert!(errors.is_empty(), "{errors:?}");
         let keep = [
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "PDF/A…",
             "Microsoft Word (.docx)",
@@ -3109,6 +3117,8 @@ mod tests {
         let (entries, errors) = parse_entries(kk.0.source, kk.0.plural_forms());
         assert!(errors.is_empty(), "{errors:?}");
         let keep = [
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "PDF/A…",
             "Microsoft Word (.docx)",
