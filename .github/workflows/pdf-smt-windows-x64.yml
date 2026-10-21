@@ -45,12 +45,33 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           dotnet tool install --global wix --version 5.0.2
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Restore Rust build cache
+        id: rust-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            pdf-smt/target
+          key: windows-rust-1.95-${{ hashFiles('pdf-smt/Cargo.lock') }}-${{ github.sha }}
+          restore-keys: |
+            windows-rust-1.95-${{ hashFiles('pdf-smt/Cargo.lock') }}-
       - name: Check licences and embedded assets
         working-directory: pdf-smt
         run: cargo xtask assets
       - name: Test desktop and interface
         working-directory: pdf-smt
         run: cargo test --locked --no-fail-fast -p pdfcraft -p pdfcraft-ui-egui -j 2
+      - name: Save Rust build cache
+        if: ${{ !cancelled() && steps.rust-cache.outputs.cache-hit != 'true' }}
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            pdf-smt/target
+          key: ${{ steps.rust-cache.outputs.cache-primary-key }}
       - name: Build x64 MSI and portable ZIP
         working-directory: pdf-smt
         run: ./packaging/windows/package.ps1 -Arch x64
