@@ -620,3 +620,5 @@ Branding source prepared. Compilation and runtime validation pending; upstream m
 - **2026-10-22:** Build #12 reached the About image readiness assertion. The native PNG loader is asynchronous and initially returns Pending; the test now waits with a deadline for Ready and reports decoder errors immediately. Loader and application assets unchanged. Revalidating Windows/macOS.
 
 - 2026-10-22: pdf.SMT macOS icon references now include explicit .icns extensions; packaging validates both referenced resources with native PNG decoding. Local plist/resource checks pass; Finder verification awaits the rebuilt app. First launch still requires approval for this unnotarized personal build.
+
+- 2026-10-22: Dedicated macOS rounded-square SMT artwork replaces the folded-document app silhouette; ICNS and runtime PNG share the new master. Asset validation passed locally; installed appearance awaits macOS build and user verification.

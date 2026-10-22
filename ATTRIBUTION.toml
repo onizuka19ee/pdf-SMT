@@ -3166,7 +3166,7 @@ licence = "MIT OR Apache-2.0"
 licence_file = "LICENSE-MIT"
 kind = "icon"
 usage = "Personal app and PDF document icons for Windows and macOS packaging"
-sha256 = "d9d4f479bd81b32ee5927068e06a99a6f337f3bfff0b1b4148fafaff4cba0b3e"
+sha256 = "b8f4804a72ce78d87c1ed5e57431f5e756bd583ec74659a9c32972a73378f51b"
 
 [[asset]]
 path = "assets/smt-icons/app.ico"
@@ -3233,3 +3233,14 @@ licence_file = "LICENSE-MIT"
 kind = "image"
 usage = "Personal About dialog portrait, displayed with a circular mask"
 sha256 = "2e8799bb2f838aea613812b019ba8cea974faa207455110e454bcd837c6dd13d"
+
+[[asset]]
+path = "assets/smt-icons/app-macos.png"
+title = "pdf.SMT macOS rounded-square app icon"
+author = "SMT (AI-assisted artwork)"
+source = "Contributor-original, requested 2026-10-22; see assets/smt-icons/README.md"
+licence = "MIT OR Apache-2.0"
+licence_file = "LICENSE-MIT"
+kind = "icon"
+usage = "Dedicated macOS app icon master and runtime icon"
+sha256 = "ff81b47abd8fe95cd4d9094cdc4ac541a301d4530dace42d165fc86a23955f95"

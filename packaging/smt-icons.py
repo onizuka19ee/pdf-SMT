@@ -9,6 +9,11 @@ for name in ('app', 'document'):
     with Image.open(icons / f'{name}.png') as source:
         source = source.convert('RGBA')
         source.save(icons / f'{name}.ico', sizes=[(s, s) for s in (16, 20, 24, 32, 40, 48, 64, 128, 256)])
-        source.save(icons / f'{name}.icns')
+        if name == 'document':
+            source.save(icons / 'document.icns')
         if name == 'app':
             source.resize((256, 256), Image.Resampling.LANCZOS).save(icons / 'app-256.png', optimize=True)
+
+# macOS uses its own rounded-square artwork and transparent outer spacing.
+with Image.open(icons / "app-macos.png") as source:
+    source.convert("RGBA").save(icons / "app.icns")

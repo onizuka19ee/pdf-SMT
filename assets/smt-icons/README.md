@@ -7,3 +7,5 @@ Approved by SMT on 2026-10-22. Generated custom SMT ribbon lettering and folded-
 Windows embeds app.ico as resource 1 and document.ico as resource 2. The MSI uses the app icon for shortcuts and resource 2 for the PDF file association when the user selects pdf.SMT as default. macOS bundles both ICNS files and declares the document icon separately in Info.plist. Finder/Explorer may show document thumbnails instead of file icons when previews are enabled.
 
 2026-10-22 revision: app artwork uses the approved square dark-red variant. The PDF document icon is unchanged. `portrait.png` is the user's supplied original portrait, resized for the About dialog and clipped to a circle by egui at runtime; no network fetch is needed. The custom English welcome and creator copy intentionally matches the installer across interface languages.
+
+macOS refinement (2026-10-22): `app-macos.png` is the dedicated 1024px transparent rounded-square master, generated from the SMT design at the owner's request. It removes the folded corner, retains the dark-red tile and white SMT/PDF lettering, and supplies app.icns and the macOS runtime icon. Windows retains app.png.

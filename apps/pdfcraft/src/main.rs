@@ -51,7 +51,7 @@ const APP_ID: &str = "app.smt.pdf";
 /// The approved SMT app icon (assets/smt-icons/README.md), with transparent margins.
 /// macOS uses the 1024 px master; other platforms use the 256 px resource.
 #[cfg(target_os = "macos")]
-const APP_ICON_PNG: &[u8] = include_bytes!("../../../assets/smt-icons/app.png");
+const APP_ICON_PNG: &[u8] = include_bytes!("../../../assets/smt-icons/app-macos.png");
 #[cfg(not(target_os = "macos"))]
 const APP_ICON_PNG: &[u8] = include_bytes!("../../../assets/smt-icons/app-256.png");
 
