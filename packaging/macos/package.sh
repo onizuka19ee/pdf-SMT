@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Build, sign and (optionally) notarize the macOS release artifacts:
 #
-#   $DIST/pdfcraft-<version>-macos-<arch>.dmg          pdf.SMT.app on a drag-to-Applications DMG
-#   $DIST/pdfcraft-cli-<version>-macos-<arch>.zip      the headless CLI
+#   $DIST/pdf.SMT-<version>-macos-<arch>.dmg          pdf.SMT.app on a drag-to-Applications DMG
+#   $DIST/pdf.SMT-cli-<version>-macos-<arch>.zip      the headless CLI
 #
 # Usage: packaging/macos/package.sh [--arch universal|aarch64|x86_64] [--skip-build]
 #
@@ -40,8 +40,8 @@ IDENTITY="${MACOS_SIGN_IDENTITY:--}"
 SHORT_VERSION="${VERSION%%-*}"
 WORK="$CARGO_TARGET_DIR/macos-package"
 APP="$WORK/pdf.SMT.app"
-DMG="$DIST/pdfcraft-$VERSION-macos-$ARCH.dmg"
-CLI_ZIP="$DIST/pdfcraft-cli-$VERSION-macos-$ARCH.zip"
+DMG="$DIST/pdf.SMT-$VERSION-macos-$ARCH.dmg"
+CLI_ZIP="$DIST/pdf.SMT-cli-$VERSION-macos-$ARCH.zip"
 
 NOTARIZE=0
 if [ "$IDENTITY" = "-" ]; then
@@ -137,6 +137,7 @@ STAGE="$WORK/dmg"
 mkdir -p "$STAGE"
 ditto "$APP" "$STAGE/pdf.SMT.app"
 ln -s /Applications "$STAGE/Applications"
+cp "$HERE/INSTALL.txt" "$STAGE/INSTALL.txt"
 # Finder window layout: background, icon size and positions (packaging/macos/dmg/README.md).
 mkdir -p "$STAGE/.background"
 cp "$HERE/dmg/background.tiff" "$STAGE/.background/background.tiff"

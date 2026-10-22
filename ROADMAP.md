@@ -610,3 +610,5 @@ Branding source prepared. Compilation and runtime validation pending; upstream m
 - **2026-10-22:** Build #8 passed app tests and created the MSI, then the added branding checks accessed a released COM database. Moved those checks before database cleanup; save compilation cache after packaging so future retries can reuse release builds. Updated Windows packaging validation pending.
 
 - **2026-10-22:** Personalised Help > About with the supplied circular SMT portrait, requested creator line and installer welcome message; retained version and upstream credits. Updated app resources to the approved square dark-red design. About accessibility assertions and Windows validation pending.
+
+- **2026-10-22:** Added separate native Apple silicon and Intel macOS build jobs, DMG/CLI artifacts, optional Developer ID signing/notarization, checksum and install notes. Uses the approved SMT app/document icons and personalised About. Mac test, signing and mounted-DMG checks remain pending.
