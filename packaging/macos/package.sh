@@ -115,6 +115,14 @@ sed -e "s/@VERSION@/$VERSION/g" -e "s/@SHORT_VERSION@/$SHORT_VERSION/g" \
   -e "s/@BUILD_SHA@/${PDFCRAFT_BUILD_SHA:-unknown}/g" \
   "$HERE/Info.plist.in" >"$APP/Contents/Info.plist"
 plutil -lint "$APP/Contents/Info.plist"
+# Resolve the exact plist filenames and decode both icons with Apple's image tools.
+# Explicit .icns extensions avoid ambiguity with the dot in the pdf.SMT brand.
+for key in CFBundleIconFile CFBundleDocumentTypes.0.CFBundleTypeIconFile; do
+  icon="$(plutil -extract "$key" raw -o - "$APP/Contents/Info.plist")"
+  test -s "$APP/Contents/Resources/$icon"
+  sips -s format png "$APP/Contents/Resources/$icon" --out "$WORK/$icon.png" >/dev/null
+  test -s "$WORK/$icon.png"
+done
 printf 'APPL????' >"$APP/Contents/PkgInfo"
 
 # Sign inside-out: nested code first, then the bundle itself (no --deep on the final signature).

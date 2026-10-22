@@ -618,3 +618,5 @@ Branding source prepared. Compilation and runtime validation pending; upstream m
 - **2026-10-22:** PNG loader compiled in Windows build #11; the new texture readiness test failed to compile because its diagnostic formatted a non-Debug TexturePoll. Removed that formatting while preserving the readiness assertion. Revalidating Windows/macOS.
 
 - **2026-10-22:** Build #12 reached the About image readiness assertion. The native PNG loader is asynchronous and initially returns Pending; the test now waits with a deadline for Ready and reports decoder errors immediately. Loader and application assets unchanged. Revalidating Windows/macOS.
+
+- 2026-10-22: pdf.SMT macOS icon references now include explicit .icns extensions; packaging validates both referenced resources with native PNG decoding. Local plist/resource checks pass; Finder verification awaits the rebuilt app. First launch still requires approval for this unnotarized personal build.
