@@ -3155,7 +3155,7 @@ licence = "MIT OR Apache-2.0"
 licence_file = "LICENSE-MIT"
 kind = "icon"
 usage = "Personal app and PDF document icons for Windows and macOS packaging"
-sha256 = "7bded231c4b80dda16fa3109393bab569cb177b3a7b0188dde714b09c04da87c"
+sha256 = "664ae5f2c06702f52aa62f0cfafcdb2901353ca736222c9b15ee0b717e1583da"
 
 [[asset]]
 path = "assets/smt-icons/app.icns"
@@ -3166,7 +3166,7 @@ licence = "MIT OR Apache-2.0"
 licence_file = "LICENSE-MIT"
 kind = "icon"
 usage = "Personal app and PDF document icons for Windows and macOS packaging"
-sha256 = "d71c6cb5069eb18bd090505ce79f4c14318ab972275f9ca5c9b7fb5c41908d20"
+sha256 = "d9d4f479bd81b32ee5927068e06a99a6f337f3bfff0b1b4148fafaff4cba0b3e"
 
 [[asset]]
 path = "assets/smt-icons/app.ico"
@@ -3177,7 +3177,7 @@ licence = "MIT OR Apache-2.0"
 licence_file = "LICENSE-MIT"
 kind = "icon"
 usage = "Personal app and PDF document icons for Windows and macOS packaging"
-sha256 = "cede865dad2ccf3242c408d6e60e2bf1e2768294b08bc5aed1058809ec97df64"
+sha256 = "c6575ce99d9890cff3c1bda40c59dda7c9a58b20fccf565f0abf2be2f3b3779c"
 
 [[asset]]
 path = "assets/smt-icons/app.png"
@@ -3188,7 +3188,7 @@ licence = "MIT OR Apache-2.0"
 licence_file = "LICENSE-MIT"
 kind = "icon"
 usage = "Personal app and PDF document icons for Windows and macOS packaging"
-sha256 = "297a538523ad1368f34ea1c9b26f58d04026b7dd45a01b888f7cc3cf6d32bda9"
+sha256 = "6ffae5254759d60ec30778d5a303c7d97c7466c813879ee9db1241f57760d0e3"
 
 [[asset]]
 path = "assets/smt-icons/document.icns"
@@ -3222,3 +3222,14 @@ licence_file = "LICENSE-MIT"
 kind = "icon"
 usage = "Personal app and PDF document icons for Windows and macOS packaging"
 sha256 = "a3cb4a668656488bc9eae793455eccbcaa537e26db54df58c8dbe8946c0e9ba5"
+
+[[asset]]
+path = "assets/smt-icons/portrait.png"
+title = "SMT portrait for About"
+author = "SMT (user-supplied artwork)"
+source = "Contributor-supplied portrait, provided by SMT on 2026-10-22"
+licence = "MIT OR Apache-2.0"
+licence_file = "LICENSE-MIT"
+kind = "image"
+usage = "Personal About dialog portrait, displayed with a circular mask"
+sha256 = "2e8799bb2f838aea613812b019ba8cea974faa207455110e454bcd837c6dd13d"

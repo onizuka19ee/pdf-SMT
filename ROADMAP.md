@@ -608,3 +608,5 @@ Branding source prepared. Compilation and runtime validation pending; upstream m
 - **2026-10-22:** Added approved SMT app and inverted PDF document icons, Windows embedded resources and personal installer welcome text. Prepared macOS app/document ICNS resources and bundle registration. Windows packaging validation pending; no Mac release claimed.
 
 - **2026-10-22:** Build #8 passed app tests and created the MSI, then the added branding checks accessed a released COM database. Moved those checks before database cleanup; save compilation cache after packaging so future retries can reuse release builds. Updated Windows packaging validation pending.
+
+- **2026-10-22:** Personalised Help > About with the supplied circular SMT portrait, requested creator line and installer welcome message; retained version and upstream credits. Updated app resources to the approved square dark-red design. About accessibility assertions and Windows validation pending.

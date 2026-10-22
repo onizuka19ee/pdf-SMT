@@ -4,7 +4,7 @@
 
 Every asset pdf.SMT includes, bundles or uses to build its published material, with its author, source and licence. The policy is in [AGENTS.md](AGENTS.md) §1. The machine-readable list, with SHA-256 hashes, is [ATTRIBUTION.toml](ATTRIBUTION.toml). Licence texts are kept beside the assets and summarised in [NOTICE](NOTICE).
 
-## In this repository (258)
+## In this repository (259)
 
 | Asset | Title | Author | Licence | Source | Used for |
 |---|---|---|---|---|---|
@@ -266,6 +266,7 @@ Every asset pdf.SMT includes, bundles or uses to build its published material, w
 | `assets/smt-icons/document.icns` | pdf.SMT document icon (icns) | SMT (AI-assisted artwork) | MIT OR Apache-2.0 | Contributor-original, approved 2026-10-22; see assets/smt-icons/README.md | Personal app and PDF document icons for Windows and macOS packaging |
 | `assets/smt-icons/document.ico` | pdf.SMT document icon (ico) | SMT (AI-assisted artwork) | MIT OR Apache-2.0 | Contributor-original, approved 2026-10-22; see assets/smt-icons/README.md | Personal app and PDF document icons for Windows and macOS packaging |
 | `assets/smt-icons/document.png` | pdf.SMT document icon (png) | SMT (AI-assisted artwork) | MIT OR Apache-2.0 | Contributor-original, approved 2026-10-22; see assets/smt-icons/README.md | Personal app and PDF document icons for Windows and macOS packaging |
+| `assets/smt-icons/portrait.png` | SMT portrait for About | SMT (user-supplied artwork) | MIT OR Apache-2.0 | Contributor-supplied portrait, provided by SMT on 2026-10-22 | Personal About dialog portrait, displayed with a circular mask |
 
 ## Compiled in through dependencies (6)
 

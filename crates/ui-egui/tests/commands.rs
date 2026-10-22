@@ -501,6 +501,10 @@ fn the_about_dialog_shows_the_running_version() {
     h.state_mut().execute("help.about");
     h.run_steps(3);
     h.get_by_label_contains(&format!("Version {}", env!("CARGO_PKG_VERSION")));
+    h.get_by_label("Reverse-engineered by SMT");
+    h.get_by_label("Created by SMT, for you.");
+    h.get_by_label("SMT portrait");
+    h.get_by_label_contains("Halal for everyone");
 }
 
 #[test]
