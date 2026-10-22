@@ -270,3 +270,16 @@ Assert-Equal $rm[0] 'MsiRMFilesInUse' 'Files-in-use dialog'
 [void] [Runtime.InteropServices.Marshal]::FinalReleaseComObject($Database)
 [void] [Runtime.InteropServices.Marshal]::FinalReleaseComObject($Installer)
 Write-Output 'ok MSI: per-machine scope guard, publisher, persistent progress text, Start Menu shortcut, optional desktop shortcut and PDF and image context menus (on for a first install, kept on update only while present; checkboxes for the first two), icon/key path, full-UI success/cancel/error and Finish controls, files-in-use dialog, OCR models'
+
+# Fork branding must survive compilation into the MSI database.
+$welcome = Read-Row 'SELECT `Text` FROM `Control` WHERE `Dialog_` = ''InstallWelcome'' AND `Control` = ''PersonalMessage''' 1
+if ($welcome[0] -notmatch 'Halal for everyone' -or $welcome[0] -notmatch 'selling a kidney') {
+  throw 'Personal welcome message is missing'
+}
+$creator = Read-Row 'SELECT `Text` FROM `Control` WHERE `Dialog_` = ''InstallWelcome'' AND `Control` = ''Creator''' 1
+if ($creator[0] -notmatch 'Created by SMT, for you') { throw 'Creator credit is missing' }
+foreach ($key in @('Software\Classes\pdf.SMT.Document\DefaultIcon', 'Software\Classes\Applications\pdf.SMT.exe\DefaultIcon')) {
+  $fileIcon = Read-Row ('SELECT `Value` FROM `Registry` WHERE `Key` = ''' + $key + '''') 1
+  Assert-Equal $fileIcon[0] '"[#PdfcraftExe]",-2' 'PDF document icon resource'
+}
+Write-Output 'ok MSI: personal welcome, creator credit and separate PDF document icon'

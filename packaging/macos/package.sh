@@ -102,7 +102,8 @@ echo "==> assembling $APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 # Executable and icon carry the display name (CFBundleExecutable / CFBundleIconFile).
 cp "$WORK/bin/pdfcraft" "$APP/Contents/MacOS/pdf.SMT"
-cp "$ROOT/assets/app-icon/pdfcraft.icns" "$APP/Contents/Resources/pdf.SMT.icns"
+cp "$ROOT/assets/smt-icons/app.icns" "$APP/Contents/Resources/pdf.SMT.icns"
+cp "$ROOT/assets/smt-icons/document.icns" "$APP/Contents/Resources/pdf.SMT-document.icns"
 # The standard About panel (pdf.SMT menu > About pdf.SMT) shows Credits.rtf under the version:
 # the website and Discord links the in-app About dialog has (#1287).
 cp "$HERE/Credits.rtf" "$APP/Contents/Resources/Credits.rtf"

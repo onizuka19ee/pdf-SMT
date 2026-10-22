@@ -8,18 +8,24 @@
       <TextStyle Id="InstallerTitle" FaceName="Segoe UI" Size="12" Bold="yes" />
       <Property Id="DefaultUIFont" Value="InstallerNormal" />
 
-      <Dialog Id="InstallWelcome" Width="370" Height="180" Title="[ProductName] Setup">
-        <Control Id="Title" Type="Text" X="20" Y="20" Width="330" Height="25" Text="{\InstallerTitle}Install [ProductName]" />
-        <Control Id="Description" Type="Text" X="20" Y="55" Width="330" Height="40"
+      <Dialog Id="InstallWelcome" Width="370" Height="310" Title="[ProductName] Setup">
+        <Control Id="Title" Type="Text" X="20" Y="20" Width="330" Height="25" Text="{\InstallerTitle}Welcome to [ProductName]" />
+        <Control Id="PersonalMessage" Type="Text" X="20" Y="55" Width="330" Height="65"
+            Text="Inspired by Adobe Acrobat Pro DC - because working with PDFs shouldn't require selling a kidney. Halal for everyone, friendly to your wallet, and made to get things done." />
+        <Control Id="Creator" Type="Text" X="20" Y="125" Width="330" Height="20"
+            Text="{\InstallerTitle}Created by SMT, for you." />
+        <Control Id="Independence" Type="Text" X="20" Y="153" Width="330" Height="30"
+            Text="An independent project, not affiliated with or endorsed by Adobe." />
+        <Control Id="Description" Type="Text" X="20" Y="190" Width="330" Height="30"
             Text="Setup will install [ProductName] for all users and add it to the Start menu. Click Install to continue." />
-        <Control Id="DesktopShortcut" Type="CheckBox" X="20" Y="105" Width="330" Height="17"
+        <Control Id="DesktopShortcut" Type="CheckBox" X="20" Y="230" Width="330" Height="17"
             Property="INSTALLDESKTOPSHORTCUT" CheckBoxValue="1" Text="Create a &amp;desktop shortcut" />
-        <Control Id="PdfContextMenu" Type="CheckBox" X="20" Y="123" Width="330" Height="17"
+        <Control Id="PdfContextMenu" Type="CheckBox" X="20" Y="250" Width="330" Height="17"
             Property="INSTALLPDFCONTEXTMENU" CheckBoxValue="1" Text="Add &quot;&amp;Edit with pdf.SMT&quot; to the right-click menu of PDF files" />
-        <Control Id="Install" Type="PushButton" X="195" Y="145" Width="75" Height="23" Default="yes" ElevationShield="yes" Text="&amp;Install">
+        <Control Id="Install" Type="PushButton" X="195" Y="280" Width="75" Height="23" Default="yes" ElevationShield="yes" Text="&amp;Install">
           <Publish Event="EndDialog" Value="Return" />
         </Control>
-        <Control Id="Cancel" Type="PushButton" X="280" Y="145" Width="70" Height="23" Cancel="yes" Text="Cancel">
+        <Control Id="Cancel" Type="PushButton" X="280" Y="280" Width="70" Height="23" Cancel="yes" Text="Cancel">
           <Publish Event="EndDialog" Value="Exit" />
         </Control>
       </Dialog>

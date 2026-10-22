@@ -11,16 +11,16 @@ mod windows_manifest;
 
 fn main() {
     println!("cargo:rerun-if-changed=build.rs");
-    println!("cargo:rerun-if-changed=../../assets/app-icon/pdfcraft.ico");
-    println!("cargo:rerun-if-changed=../../assets/app-icon/pdfcraft-document.ico");
+    println!("cargo:rerun-if-changed=../../assets/smt-icons/app.ico");
+    println!("cargo:rerun-if-changed=../../assets/smt-icons/document.ico");
     println!("cargo:rerun-if-changed=src/windows_manifest.rs");
     println!("cargo:rerun-if-env-changed=PDFCRAFT_REQUIRE_WINRES");
     if std::env::var("CARGO_CFG_TARGET_OS").as_deref() != Ok("windows") {
         return;
     }
     let mut res = winresource::WindowsResource::new();
-    res.set_icon("../../assets/app-icon/pdfcraft.ico")
-        .set_icon_with_id("../../assets/app-icon/pdfcraft-document.ico", "2")
+    res.set_icon("../../assets/smt-icons/app.ico")
+        .set_icon_with_id("../../assets/smt-icons/document.ico", "2")
         .set_manifest(windows_manifest::WINDOWS_MANIFEST)
         .set("ProductName", "pdf.SMT")
         .set("FileDescription", "pdf.SMT PDF workbench")

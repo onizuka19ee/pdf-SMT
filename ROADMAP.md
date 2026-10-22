@@ -604,3 +604,5 @@ Branding source prepared. Compilation and runtime validation pending; upstream m
 - **2026-10-21:** Windows build #5 passed translation and library tests, then the tab-strip integration test queried the retired Discord button. Updated Windows/macOS assertions to the source link and reserved the actual source-label width in the tab strip. Run all test binaries before reporting failures; installer packaging remains pending.
 
 - **2026-10-21:** Windows build #6 completed all test binaries: 1,420 passed, one failed, five ignored. Narrow-tab wheel test matched both a tab and tooltip; select the Tab accessibility role explicitly. Added reusable Windows compilation caches, including after failed tests. Windows validation and installer packaging remain pending.
+
+- **2026-10-22:** Added approved SMT app and inverted PDF document icons, Windows embedded resources and personal installer welcome text. Prepared macOS app/document ICNS resources and bundle registration. Windows packaging validation pending; no Mac release claimed.
