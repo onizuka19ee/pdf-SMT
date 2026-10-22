@@ -505,8 +505,19 @@ fn the_about_dialog_shows_the_running_version() {
     h.get_by_label("Created by SMT, for you.");
     h.get_by_label("SMT portrait");
     let portrait = egui::Image::new(egui::include_image!("../../../assets/smt-icons/portrait.png"));
-    let loaded = portrait.load_for_size(&h.ctx, egui::vec2(88.0, 88.0));
-    assert!(matches!(loaded, Ok(egui::load::TexturePoll::Ready { .. })), "portrait must decode into a ready texture");
+    // The native image loader decodes on a background thread; Pending is not a failure.
+    let deadline = std::time::Instant::now() + std::time::Duration::from_secs(10);
+    loop {
+        match portrait.load_for_size(&h.ctx, egui::vec2(88.0, 88.0)) {
+            Ok(egui::load::TexturePoll::Ready { .. }) => break,
+            Ok(egui::load::TexturePoll::Pending { .. }) => {
+                assert!(std::time::Instant::now() < deadline, "portrait decoding timed out");
+                h.step();
+                std::thread::sleep(std::time::Duration::from_millis(5));
+            }
+            Err(error) => panic!("portrait failed to decode: {error:?}"),
+        }
+    }
     h.get_by_label_contains("Halal for everyone");
 }
 

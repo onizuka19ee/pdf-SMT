@@ -616,3 +616,5 @@ Branding source prepared. Compilation and runtime validation pending; upstream m
 - **2026-10-22:** About portrait failed to render because only the SVG loader was enabled. Enabled the egui_extras image loader with PNG decoding as a production dependency; added actual texture-load validation to the About UI test. Header now uses the app icon. Windows/macOS validation pending.
 
 - **2026-10-22:** PNG loader compiled in Windows build #11; the new texture readiness test failed to compile because its diagnostic formatted a non-Debug TexturePoll. Removed that formatting while preserving the readiness assertion. Revalidating Windows/macOS.
+
+- **2026-10-22:** Build #12 reached the About image readiness assertion. The native PNG loader is asynchronous and initially returns Pending; the test now waits with a deadline for Ready and reports decoder errors immediately. Loader and application assets unchanged. Revalidating Windows/macOS.
