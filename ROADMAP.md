@@ -606,3 +606,5 @@ Branding source prepared. Compilation and runtime validation pending; upstream m
 - **2026-10-21:** Windows build #6 completed all test binaries: 1,420 passed, one failed, five ignored. Narrow-tab wheel test matched both a tab and tooltip; select the Tab accessibility role explicitly. Added reusable Windows compilation caches, including after failed tests. Windows validation and installer packaging remain pending.
 
 - **2026-10-22:** Added approved SMT app and inverted PDF document icons, Windows embedded resources and personal installer welcome text. Prepared macOS app/document ICNS resources and bundle registration. Windows packaging validation pending; no Mac release claimed.
+
+- **2026-10-22:** Build #8 passed app tests and created the MSI, then the added branding checks accessed a released COM database. Moved those checks before database cleanup; save compilation cache after packaging so future retries can reuse release builds. Updated Windows packaging validation pending.

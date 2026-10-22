@@ -267,10 +267,6 @@ try {
 if ($modelFiles -lt 2) { throw "expected the OCR models (*.rten) in models\, found $modelFiles" }
 $rm = Read-Row 'SELECT `Dialog` FROM `Dialog` WHERE `Dialog` = ''MsiRMFilesInUse''' 1
 Assert-Equal $rm[0] 'MsiRMFilesInUse' 'Files-in-use dialog'
-[void] [Runtime.InteropServices.Marshal]::FinalReleaseComObject($Database)
-[void] [Runtime.InteropServices.Marshal]::FinalReleaseComObject($Installer)
-Write-Output 'ok MSI: per-machine scope guard, publisher, persistent progress text, Start Menu shortcut, optional desktop shortcut and PDF and image context menus (on for a first install, kept on update only while present; checkboxes for the first two), icon/key path, full-UI success/cancel/error and Finish controls, files-in-use dialog, OCR models'
-
 # Fork branding must survive compilation into the MSI database.
 $welcome = Read-Row 'SELECT `Text` FROM `Control` WHERE `Dialog_` = ''InstallWelcome'' AND `Control` = ''PersonalMessage''' 1
 if ($welcome[0] -notmatch 'Halal for everyone' -or $welcome[0] -notmatch 'selling a kidney') {
@@ -283,3 +279,7 @@ foreach ($key in @('Software\Classes\pdf.SMT.Document\DefaultIcon', 'Software\Cl
   Assert-Equal $fileIcon[0] '"[#PdfcraftExe]",-2' 'PDF document icon resource'
 }
 Write-Output 'ok MSI: personal welcome, creator credit and separate PDF document icon'
+
+[void] [Runtime.InteropServices.Marshal]::FinalReleaseComObject($Database)
+[void] [Runtime.InteropServices.Marshal]::FinalReleaseComObject($Installer)
+Write-Output 'ok MSI: per-machine scope guard, publisher, persistent progress text, Start Menu shortcut, optional desktop shortcut and PDF and image context menus (on for a first install, kept on update only while present; checkboxes for the first two), icon/key path, full-UI success/cancel/error and Finish controls, files-in-use dialog, OCR models'
