@@ -591,3 +591,30 @@ Newest first: the date, what moved, and the new overall estimate.
 - **2026-10-13 (M7):** Edit a PDF ▸ Add content: Header and footer, Watermark and Background open an Add / Update / Remove menu (Update and Remove enabled only when the document has that mark), as Acrobat's Watermark control does. The catalogue gains `ToolItem::actions`, so any tool can list more commands (#1192).
 
 - **2026-10-18 (M8, #1350):** Published the history-preserving integration; simplified the inherited-form resource guard for Rust 1.96 Clippy. Formatting, 64 redaction tests, scoped Clippy, layering, assets and the scoped wasm check pass locally. CI remains pending; estimates unchanged.
+
+
+## pdf.SMT fork — 2026-10-20
+
+Branding source prepared. Compilation and runtime validation pending; upstream milestone statuses unchanged.
+
+- **2026-10-20:** Windows build #2 failed on missing fork-label translations and a font test disabled by the workflow environment. Added translations in all 22 catalogs and removed the screenshot-only font override from the build job. Windows tests and packaging must pass before distributing an installer.
+
+- **2026-10-21:** Windows build #4 passed asset validation and 460 interface tests, but five translation checks treated the invariant product name as untranslated prose. Added pdf.SMT to those existing product-name allowlists; compilation, remaining test suites and packaging still require Windows validation.
+
+- **2026-10-21:** Windows build #5 passed translation and library tests, then the tab-strip integration test queried the retired Discord button. Updated Windows/macOS assertions to the source link and reserved the actual source-label width in the tab strip. Run all test binaries before reporting failures; installer packaging remains pending.
+
+- **2026-10-21:** Windows build #6 completed all test binaries: 1,420 passed, one failed, five ignored. Narrow-tab wheel test matched both a tab and tooltip; select the Tab accessibility role explicitly. Added reusable Windows compilation caches, including after failed tests. Windows validation and installer packaging remain pending.
+
+- **2026-10-22:** Added approved SMT app and inverted PDF document icons, Windows embedded resources and personal installer welcome text. Prepared macOS app/document ICNS resources and bundle registration. Windows packaging validation pending; no Mac release claimed.
+
+- **2026-10-22:** Build #8 passed app tests and created the MSI, then the added branding checks accessed a released COM database. Moved those checks before database cleanup; save compilation cache after packaging so future retries can reuse release builds. Updated Windows packaging validation pending.
+
+- **2026-10-22:** Personalised Help > About with the supplied circular SMT portrait, requested creator line and installer welcome message; retained version and upstream credits. Updated app resources to the approved square dark-red design. About accessibility assertions and Windows validation pending.
+
+- **2026-10-22:** Added separate native Apple silicon and Intel macOS build jobs, DMG/CLI artifacts, optional Developer ID signing/notarization, checksum and install notes. Uses the approved SMT app/document icons and personalised About. Mac test, signing and mounted-DMG checks remain pending.
+
+- **2026-10-22:** About portrait failed to render because only the SVG loader was enabled. Enabled the egui_extras image loader with PNG decoding as a production dependency; added actual texture-load validation to the About UI test. Header now uses the app icon. Windows/macOS validation pending.
+
+- **2026-10-22:** PNG loader compiled in Windows build #11; the new texture readiness test failed to compile because its diagnostic formatted a non-Debug TexturePoll. Removed that formatting while preserving the readiness assertion. Revalidating Windows/macOS.
+
+- **2026-10-22:** Build #12 reached the About image readiness assertion. The native PNG loader is asynchronous and initially returns Pending; the test now waits with a deadline for Ready and reports decoder errors immediately. Loader and application assets unchanged. Revalidating Windows/macOS.

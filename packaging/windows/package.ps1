@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Build, sign and package PdfCraft for Windows.
+  Build, sign and package pdf.SMT for Windows.
 
 .DESCRIPTION
   Produces, in $env:DIST (default: dist/release):
@@ -53,7 +53,7 @@ New-Item -ItemType Directory -Force -Path $Dist | Out-Null
 if (-not $env:PDFCRAFT_BUILD_SHA) { $env:PDFCRAFT_BUILD_SHA = (git -C $Root rev-parse HEAD 2>$null) }
 if (-not $env:PDFCRAFT_BUILD_DATE) { $env:PDFCRAFT_BUILD_DATE = (Get-Date).ToUniversalTime().ToString('yyyy-MM-dd') }
 
-Write-Output "PdfCraft $Version for Windows $Arch ($Target)"
+Write-Output "pdf.SMT $Version for Windows $Arch ($Target)"
 
 if (-not $SkipBuild) {
   # Static CRT: no VC++ redistributable needed. Scoped to the target so host build scripts and
@@ -109,11 +109,11 @@ if (-not (Test-Path (Join-Path $Models 'ATTRIBUTION.txt')) -or -not (Get-ChildIt
 }
 
 # ---- MSI ---------------------------------------------------------------------------------------
-$Msi = Join-Path $Dist "pdfcraft-$Version-windows-$Arch.msi"
+$Msi = Join-Path $Dist "pdf.SMT-$Version-windows-$Arch.msi"
 Invoke-Native 'wix build' {
   wix build (Join-Path $PSScriptRoot 'pdfcraft.wxs') -arch $Arch `
     (Join-Path $PSScriptRoot 'installer-ui.wxs') `
-    -d "Version=$MsiVersion" -d "BinDir=$Stage" -d "ModelsDir=$Models" -d "IconPath=$(Join-Path $Root 'assets\app-icon\pdfcraft.ico')" `
+    -d "Version=$MsiVersion" -d "BinDir=$Stage" -d "ModelsDir=$Models" -d "IconPath=$(Join-Path $Root 'assets\smt-icons\app.ico')" `
     -o $Msi
 }
 # Inspect the built MSI, not just the XML, before signing/publishing it. In a child process, so
@@ -124,10 +124,11 @@ Remove-Item -Force -ErrorAction SilentlyContinue ([IO.Path]::ChangeExtension($Ms
 & (Join-Path $PSScriptRoot 'sign.ps1') $Msi
 
 # ---- portable zip ------------------------------------------------------------------------------
-$Portable = Join-Path $TargetDir "windows-package\pdfcraft-$Version-windows-$Arch-portable"
+$Portable = Join-Path $TargetDir "windows-package\pdf.SMT-$Version-windows-$Arch-portable"
 Remove-Item -Recurse -Force $Portable -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $Portable | Out-Null
-Copy-Item (Join-Path $Stage '*.exe') $Portable
+Copy-Item (Join-Path $Stage 'pdfcraft.exe') (Join-Path $Portable 'pdf.SMT.exe')
+Copy-Item (Join-Path $Stage 'pdfcraft-cli.exe') (Join-Path $Portable 'pdf.SMT-cli.exe')
 foreach ($f in 'NOTICE', 'LICENSE-document.txt') {
   Copy-Item (Join-Path $Stage $f) $Portable
 }
@@ -145,10 +146,10 @@ if ($env:CRAFT_FONTS_DIR) {
   }
 }
 # portable.txt beside pdfcraft.exe switches on portable mode: settings, logs, recovery files and new
-# digital IDs go to PdfCraftData\ next to the exe instead of %APPDATA% (#157; see
+# digital IDs go to pdf.SMTData\ next to the exe instead of %APPDATA% (#157; see
 # crates/ui-egui/src/portable.rs).
 Copy-Item (Join-Path $PSScriptRoot 'portable.txt') $Portable
-$Zip = Join-Path $Dist "pdfcraft-$Version-windows-$Arch-portable.zip"
+$Zip = Join-Path $Dist "pdf.SMT-$Version-windows-$Arch-portable.zip"
 Remove-Item -Force $Zip -ErrorAction SilentlyContinue
 Compress-Archive -Path $Portable -DestinationPath $Zip
 

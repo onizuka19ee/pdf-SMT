@@ -854,7 +854,7 @@ mod tests {
     #[test]
     fn missing_ocr_models_messages_are_translated() {
         let error = pdfcraft_engine::ocr::OcrError::NoModels.to_string();
-        let notice = "Text recognition isn't installed: its model files are missing. Reinstall PdfCraft, or set PDFCRAFT_MODELS to the folder that holds them.";
+        let notice = "Text recognition isn't installed: its model files are missing. Reinstall pdf.SMT, or set PDFCRAFT_MODELS to the folder that holds them.";
         assert!(include_str!("../ocr_ui.rs").contains(notice), "keep in step with ocr_ui.rs");
         for code in ["bg", "cs", "de", "es", "fr", "hu", "ja", "ru", "te", "uk", "zh-hans", "zh-hant"] {
             let lang = Lang::from_code(code).expect("registered");
@@ -1447,6 +1447,8 @@ mod tests {
         // Spelled the same in Czech: product and format names, abbreviations, key caps, words
         // Czech shares with English, and templates with no English words.
         const KEEP_AS_IS: &[&str] = &[
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "PDF/A…",
             "Microsoft Word (.docx)",
@@ -1559,6 +1561,8 @@ mod tests {
             assert!(has(tr_lang, spec.label), "Turkish lacks the {menu} menu label {:?} ({})", spec.label, spec.id);
         }
         const KEEP_AS_IS: &[&str] = &[
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "PDF/A…",
             "Microsoft Word (.docx)",
@@ -2371,7 +2375,7 @@ mod tests {
             "Virš kiekvieno žodžio prideda nematomą tekstą; puslapio vaizdas nesikeičia"
         );
         assert!(
-            tr(lt, "The fonts PdfCraft writes with can't draw “{c}” ({code}), so it shows as ? in every PDF viewer. The text is saved.")
+            tr(lt, "The fonts pdf.SMT writes with can't draw “{c}” ({code}), so it shows as ? in every PDF viewer. The text is saved.")
                 .contains("visose PDF žiūryklėse")
         );
     }
@@ -2566,6 +2570,8 @@ mod tests {
         let vi = Lang::from_code("vi").expect("vi registered");
         // Authoritative allowlist for intentional English-identical Vietnamese rows.
         const KEEP_AS_IS: &[&str] = &[
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "Digital ID",
             "ZIP",
@@ -3029,6 +3035,8 @@ mod tests {
         let (entries, errors) = parse_entries(uk.0.source, uk.0.plural_forms());
         assert!(errors.is_empty(), "{errors:?}");
         let keep = [
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "PDF/A…",
             "Microsoft Word (.docx)",
@@ -3109,6 +3117,8 @@ mod tests {
         let (entries, errors) = parse_entries(kk.0.source, kk.0.plural_forms());
         assert!(errors.is_empty(), "{errors:?}");
         let keep = [
+            // Product names retain their spelling in every interface language.
+            "pdf.SMT",
             "OK",
             "PDF/A…",
             "Microsoft Word (.docx)",
@@ -3313,7 +3323,7 @@ mod tests {
         // "حفظ باسم…" as typed; the ellipsis ends the phrase on the left.
         assert_eq!(tr(ar, "Save as…"), "…باسم حفظ");
         // Latin names keep their own direction inside the phrase.
-        assert_eq!(tr(ar, "About PdfCraft"), "PdfCraft حول");
+        assert_eq!(tr(ar, "About pdf.SMT"), "pdf.SMT حول");
         // A caption's colon stays beside the widget on its right.
         assert_eq!(tr(ar, "Name:"), "الاسم:");
         assert_eq!(tr(ar, "Issued by: "), "عن صادرة: ");

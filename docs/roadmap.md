@@ -270,3 +270,8 @@ M2 (renderer), M7 (content editing), M10 (OCR and Office), M11 (Preflight and st
 | 2026-10-12 | minor | M8: cleanup removes replacement descriptions only from changed marked-content spans, preserving surviving accessibility text. Estimates unchanged. |
 | 2026-10-12 | minor | M8: image redaction removes alternate images and unsupported masks only on affected images. Estimates unchanged. |
 | 2026-10-10 | major | Created from ROADMAP.md §Milestones, §Critical path, §Risks and §Where we're lacking. Merged the duplicated M1, M2, M3 and M14 rows, re-measured Done and Remaining, added Current focus and the ranked upcoming milestones |
+
+
+## pdf.SMT fork — 2026-10-20
+
+Branding source prepared. Compilation and runtime validation pending; upstream milestone statuses unchanged.

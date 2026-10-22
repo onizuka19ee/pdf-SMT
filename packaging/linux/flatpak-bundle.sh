@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Repackage a PdfCraft Linux tarball as a single-file Flatpak bundle:
+# Repackage a pdf.SMT Linux tarball as a single-file Flatpak bundle:
 #
 #   $DIST/pdfcraft-<version>-linux-<arch>.flatpak
 #
@@ -11,12 +11,12 @@
 # `appstreamcli compose`; the freedesktop runtime and SDK named in the manifest are
 # installed per-user from Flathub. Unless --no-test, the bundle is then installed per-user and
 # `pdfcraft-cli --version` is run inside the sandbox as a smoke test.
-# Manifest: packaging/linux/flatpak/ai.storyteller.pdfcraft.bundle.yml.
+# Manifest: packaging/linux/flatpak/app.smt.pdf.bundle.yml.
 set -euo pipefail
 # shellcheck source=../env.sh
 . "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
 HERE="$ROOT/packaging/linux"
-APP_ID=ai.storyteller.pdfcraft
+APP_ID=app.smt.pdf
 FLATHUB=https://dl.flathub.org/repo/flathub.flatpakrepo
 
 TEST=1
@@ -43,7 +43,7 @@ for tool in flatpak flatpak-builder; do
   command -v "$tool" >/dev/null || { echo "error: $tool not found (apt install flatpak flatpak-builder librsvg2-common)" >&2; exit 1; }
 done
 
-echo "==> PdfCraft $VERSION Flatpak bundle for $ARCH from $(basename "$TARBALL")"
+echo "==> pdf.SMT $VERSION Flatpak bundle for $ARCH from $(basename "$TARBALL")"
 
 WORK="$CARGO_TARGET_DIR/flatpak-bundle"
 rm -rf "$WORK"

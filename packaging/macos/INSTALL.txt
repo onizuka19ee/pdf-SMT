@@ -1,0 +1,18 @@
+pdf.SMT for macOS
+
+Choose aarch64 for Apple silicon (M-series), or x86_64 for an Intel Mac.
+Open the DMG, then drag pdf.SMT.app into Applications. Eject the DMG and
+open pdf.SMT from Applications. Requires macOS 11 or later.
+
+Personal builds without an Apple Developer certificate are ad-hoc signed
+and not notarized. macOS may block the first launch. Review the developer
+warning under System Settings > Privacy & Security, and use Open Anyway
+only if you trust this build. Do not disable Gatekeeper globally.
+
+To make pdf.SMT the default PDF app: select a PDF in Finder, choose Get Info,
+select pdf.SMT under Open with, then click Change All. Finder may show
+first-page previews instead of document icons when previews are enabled.
+
+Help > About contains the personal welcome message and SMT portrait.
+Created by SMT, for you.
+Based on PdfCraft; MIT OR Apache-2.0. See bundled notices.

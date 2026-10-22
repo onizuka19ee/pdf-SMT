@@ -1,0 +1,114 @@
+name: pdf.SMT macOS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["build/pdf-smt-macos"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pdf-smt-macos-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: macOS ${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: aarch64
+            target: aarch64-apple-darwin
+          - runner: macos-15-intel
+            arch: x86_64
+            target: x86_64-apple-darwin
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 180
+    defaults:
+      run:
+        shell: bash
+    env:
+      CARGO_TERM_COLOR: always
+      CARGO_BUILD_JOBS: 2
+      MACOSX_DEPLOYMENT_TARGET: '11.0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: pdf-smt
+      - uses: actions/checkout@v4
+        with:
+          repository: storytold/craft-fonts
+          ref: 3d9ab3a132ed0eff457e424226a435a901da30d3
+          path: craft-fonts
+      - name: Set build paths and Rust
+        run: |
+          echo "CRAFT_FONTS_DIR=$GITHUB_WORKSPACE/craft-fonts" >> "$GITHUB_ENV"
+          rustup toolchain install 1.95.0 --profile minimal
+          rustup default 1.95.0
+          rustup target add ${{ matrix.target }}
+      - name: Restore Rust build cache
+        id: rust-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            pdf-smt/target
+          key: macos-${{ matrix.arch }}-rust-1.95-${{ hashFiles('pdf-smt/Cargo.lock') }}-${{ github.sha }}
+          restore-keys: |
+            macos-${{ matrix.arch }}-rust-1.95-${{ hashFiles('pdf-smt/Cargo.lock') }}-
+            macos-${{ matrix.arch }}-rust-1.95-
+      - name: Check licences and embedded assets
+        working-directory: pdf-smt
+        run: cargo xtask assets
+      - name: Test desktop and interface
+        working-directory: pdf-smt
+        run: cargo test --locked --no-fail-fast -p pdfcraft -p pdfcraft-ui-egui -j 2
+      - name: Import Apple signing certificate if configured
+        working-directory: pdf-smt
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        run: bash packaging/macos/import-cert.sh
+      - name: Build and verify macOS DMG
+        working-directory: pdf-smt
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: bash packaging/macos/package.sh --arch ${{ matrix.arch }}
+      - name: Save Rust build cache
+        if: ${{ !cancelled() && steps.rust-cache.outputs.cache-hit != 'true' }}
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            pdf-smt/target
+          key: ${{ steps.rust-cache.outputs.cache-primary-key }}
+      - name: Create checksums and installation notes
+        working-directory: pdf-smt/dist/release
+        run: |
+          shasum -a 256 *.dmg *.zip > SHA256SUMS.txt
+          cp ../../packaging/macos/INSTALL.txt INSTALL.txt
+      - name: Upload macOS downloads
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf.SMT-macOS-${{ matrix.arch }}
+          path: |
+            pdf-smt/dist/release/*.dmg
+            pdf-smt/dist/release/*.zip
+            pdf-smt/dist/release/SHA256SUMS.txt
+            pdf-smt/dist/release/INSTALL.txt
+          if-no-files-found: error
+          retention-days: 30
+      - name: Remove temporary signing keychain
+        if: ${{ always() }}
+        run: |
+          if [ -f "$RUNNER_TEMP/pdfcraft-signing.keychain-db" ]; then
+            security delete-keychain "$RUNNER_TEMP/pdfcraft-signing.keychain-db"
+          fi

@@ -501,6 +501,24 @@ fn the_about_dialog_shows_the_running_version() {
     h.state_mut().execute("help.about");
     h.run_steps(3);
     h.get_by_label_contains(&format!("Version {}", env!("CARGO_PKG_VERSION")));
+    h.get_by_label("Reverse-engineered by SMT");
+    h.get_by_label("Created by SMT, for you.");
+    h.get_by_label("SMT portrait");
+    let portrait = egui::Image::new(egui::include_image!("../../../assets/smt-icons/portrait.png"));
+    // The native image loader decodes on a background thread; Pending is not a failure.
+    let deadline = std::time::Instant::now() + std::time::Duration::from_secs(10);
+    loop {
+        match portrait.load_for_size(&h.ctx, egui::vec2(88.0, 88.0)) {
+            Ok(egui::load::TexturePoll::Ready { .. }) => break,
+            Ok(egui::load::TexturePoll::Pending { .. }) => {
+                assert!(std::time::Instant::now() < deadline, "portrait decoding timed out");
+                h.step();
+                std::thread::sleep(std::time::Duration::from_millis(5));
+            }
+            Err(error) => panic!("portrait failed to decode: {error:?}"),
+        }
+    }
+    h.get_by_label_contains("Halal for everyone");
 }
 
 #[test]
