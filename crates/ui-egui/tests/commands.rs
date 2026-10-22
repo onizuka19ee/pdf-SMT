@@ -506,7 +506,7 @@ fn the_about_dialog_shows_the_running_version() {
     h.get_by_label("SMT portrait");
     let portrait = egui::Image::new(egui::include_image!("../../../assets/smt-icons/portrait.png"));
     let loaded = portrait.load_for_size(&h.ctx, egui::vec2(88.0, 88.0));
-    assert!(matches!(loaded, Ok(egui::load::TexturePoll::Ready { .. })), "portrait must decode: {loaded:?}");
+    assert!(matches!(loaded, Ok(egui::load::TexturePoll::Ready { .. })), "portrait must decode into a ready texture");
     h.get_by_label_contains("Halal for everyone");
 }
 
