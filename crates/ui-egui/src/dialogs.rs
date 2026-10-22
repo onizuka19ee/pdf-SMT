@@ -1155,7 +1155,11 @@ fn dialogs(app: &mut PdfCraftApp, ctx: &egui::Context) {
                     2 => crate::credits::models_ui(ui),
                     _ => {
                         ui.horizontal(|ui| {
-                            widgets::artcraft_mark(ui, 40.0);
+                            ui.add(
+                                egui::Image::new(egui::include_image!("../../../assets/smt-icons/app-256.png"))
+                                    .fit_to_exact_size(egui::vec2(40.0, 40.0))
+                                    .alt_text("pdf.SMT app icon"),
+                            );
                             ui.vertical(|ui| {
                                 ui.label(egui::RichText::new("pdf.SMT").font(theme::semibold(20.0)));
                                 ui.label(crate::i18n::fmt(tl!("Version {v}"), &[("v", &pdfcraft_engine::build_info::version())]));

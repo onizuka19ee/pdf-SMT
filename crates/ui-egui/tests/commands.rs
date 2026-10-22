@@ -504,6 +504,9 @@ fn the_about_dialog_shows_the_running_version() {
     h.get_by_label("Reverse-engineered by SMT");
     h.get_by_label("Created by SMT, for you.");
     h.get_by_label("SMT portrait");
+    let portrait = egui::Image::new(egui::include_image!("../../../assets/smt-icons/portrait.png"));
+    let loaded = portrait.load_for_size(&h.ctx, egui::vec2(88.0, 88.0));
+    assert!(matches!(loaded, Ok(egui::load::TexturePoll::Ready { .. })), "portrait must decode: {loaded:?}");
     h.get_by_label_contains("Halal for everyone");
 }
 

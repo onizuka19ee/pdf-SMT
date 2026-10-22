@@ -612,3 +612,5 @@ Branding source prepared. Compilation and runtime validation pending; upstream m
 - **2026-10-22:** Personalised Help > About with the supplied circular SMT portrait, requested creator line and installer welcome message; retained version and upstream credits. Updated app resources to the approved square dark-red design. About accessibility assertions and Windows validation pending.
 
 - **2026-10-22:** Added separate native Apple silicon and Intel macOS build jobs, DMG/CLI artifacts, optional Developer ID signing/notarization, checksum and install notes. Uses the approved SMT app/document icons and personalised About. Mac test, signing and mounted-DMG checks remain pending.
+
+- **2026-10-22:** About portrait failed to render because only the SVG loader was enabled. Enabled the egui_extras image loader with PNG decoding as a production dependency; added actual texture-load validation to the About UI test. Header now uses the app icon. Windows/macOS validation pending.

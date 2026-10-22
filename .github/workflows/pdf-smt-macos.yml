@@ -60,6 +60,7 @@ jobs:
           key: macos-${{ matrix.arch }}-rust-1.95-${{ hashFiles('pdf-smt/Cargo.lock') }}-${{ github.sha }}
           restore-keys: |
             macos-${{ matrix.arch }}-rust-1.95-${{ hashFiles('pdf-smt/Cargo.lock') }}-
+            macos-${{ matrix.arch }}-rust-1.95-
       - name: Check licences and embedded assets
         working-directory: pdf-smt
         run: cargo xtask assets
